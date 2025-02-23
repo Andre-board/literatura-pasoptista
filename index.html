@@ -1,0 +1,135 @@
+﻿<html>
+    <html lang="ro">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <title>Generator Poezii Pașoptiste</title>
+        <link rel="stylesheet" href="styles.css">     
+</head>
+<body>
+   
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="comp_h.html" id="navbar__logo">ROLUL LITERATURII ÎN PERIOADA PAȘOPTISTĂ</a>
+            <div class="navbar__toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__item">
+                    <a href="comp_h.html" class="navbar__links">Home</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="kogalniceanu.html" class="navbar__links">Mihail Kogălniceanu</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="ion heliade.html" class="navbar__links">Ion Heliade-Rădulescu</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <script>
+        const menu = document.getElementById('mobile-menu');
+        const menuLinks = document.querySelector('.navbar__menu');
+
+        menu.addEventListener('click', function () {
+            menu.classList.toggle('is-active');
+            menuLinks.classList.toggle('active');
+        });
+    </script>
+    <div class="text_descriptiv">
+        <h1>Literatura pașoptistă - glasul unei națiuni </h1>
+        <h3>“Scrisul este sabia care eliberează popoarele”        </h3>
+    <h2>Ce era perioada pașoptistă? </h2>
+    <h3>Perioada: 1830-1860<br>
+        Evenimente importante:<br>
+        • Revoluția de la 1848 – o mișcare europeană care a ajuns și în Țările Române, având ca scop libertatea și drepturile naționale<br>
+ • Unirea Principatelor Române (1859) – literatură a contribuit la formarea unui sentiment de unitate între români
+Rolul literaturii: Scriitorii au promovat patriotismul, identitatea națională și educarea poporului.<br>
+Literatura pașoptistă a avut un rol important în formarea conștiinței naționale și în pregătirea unirii Principatelor. Scriitorii au folosit textele lor pentru a inspira românii să lupte pentru independență și unitate.
+</h3>
+<h2>Caracteristicile literaturii pașoptiste</h2>
+<h3>Patriotismul – Scriitorii și-au folosit operele pentru a promova ideea de unitate și dragoste de țară.<br>
+    Romantismul – Eroi istorici, peisaje idilice, lupta pentru libertate.<br>
+    Idealizarea trecutului – Modele din istorie (ex. Mihai Viteazul).<br>
+    Satira și critica socială – Atacarea corupției și nedreptăților din societate.<br>
+    Dezvoltarea limbii române – Scriitorii au contribuit la unificarea și modernizarea limbii</h3>
+    </div>
+    <h1>Generator de Poezii Pașoptiste</h1>
+    <p>Introdu câteva cuvinte-cheie separate prin virgulă:</p>
+    <textarea id="cuvinte_cheie" placeholder="ex: patrie, eroi, glorie (două substantive și un verb)"></textarea><br>
+    <button onclick="genereazaPoezia()">Generează Poezia</button>
+
+    <div id="poem"></div>
+    <script>
+    
+         const genExcepte = {
+             "patrie": "feminin",
+             "mare": "feminin",
+             "glorie": "feminin",
+             "libertate": "feminin",
+             "credință": "feminin",
+             "stea": "feminin",
+             "soare": "masculin",
+             "munte": "masculin",
+             "vis": "masculin",
+             "patria":"feminin"
+         }
+       
+        function determinaGenul(cuvant) {
+            cuvant = cuvant.trim().toLowerCase();
+            if (genExcepte[cuvant]) {
+                return genExcepte[cuvant]}
+            if (cuvant.endsWith("ă") || cuvant.endsWith("ea")) {
+                return "feminin";
+            } else if (cuvant.endsWith("e") || cuvant.endsWith("u") || /[^aeiou]$/.test(cuvant)) {
+                return "masculin";
+            }
+            return "necunoscut"; 
+        }
+
+        function genereazaPoezia() {
+            let input = document.getElementById("cuvinte_cheie").value.trim();
+            let cuvinte =input ? input.split(",").map(cuv => cuv.trim()) : [];
+
+            let fallback = ["patrie", "eroi", "glorie", "cer", "libertate"];
+
+            let cuvant1 = cuvinte[0] || fallback[0];
+            let cuvant2 = cuvinte[1] || fallback[1];
+            let cuvant3 = cuvinte[2] || fallback[2];
+            let cuvant4 = cuvinte[3] || fallback[3];
+            let cuvant5 = cuvinte[4] || fallback[4];
+
+            // Determinăm genurile
+            let gen1 = determinaGenul(cuvant1);
+            let gen2 = determinaGenul(cuvant2);
+            let gen3 = determinaGenul(cuvant3);
+            let gen4 = determinaGenul(cuvant4);
+            let gen5 = determinaGenul(cuvant5);
+
+            // Alegem adjective potrivite
+            let adj1 = (gen1 === "feminin") ? "sfântă" : "sfânt";
+            let adj2 = (gen1 === "feminin") ? "luminoasă" : "luminos";
+
+            let versuri = [
+                `O, ${cuvant1} ${adj1}, cu dorul aprins,`,
+                `În inimi de ${cuvant2}, glasul tău ne-a cuprins.`,
+                `${cuvant3}-ți cântăm în al nostru avânt,`,
+                `Luptând pentru drept și un suflet mai sfânt.`,
+
+                `Sub cerul tău vast și ${adj2},`,
+                `Se-nalță un vis prea frumos.`,
+                `${cuvant4} ne cheamă, chemarea răsună,`,
+                `Iubirea de neam niciodată n-apună!`
+            ];
+
+            let poemDiv = document.getElementById("poem");
+            poemDiv.innerHTML = versuri.join("<br>");
+            poemDiv.style.opacity = 1;
+            poemDiv.style.color = "white";
+        }
+    </script>
+</body>
+</html>
